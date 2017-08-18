@@ -1,6 +1,8 @@
 BKP
 *.bat
 
+static/*
+
 *.py[cod]
 
 # C extensions
