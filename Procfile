@@ -1,1 +1,1 @@
-web: gunicorn digitalParrot:app --log-file=-
+web: flask run
