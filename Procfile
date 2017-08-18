@@ -1,1 +1,1 @@
-web: gunicorn app:app --workers=4 --pid=pid --worker-class=meinheld.gmeinheld.MeinheldWorker
+web: gunicorn app:app --pid=pid --worker-class=meinheld.gmeinheld.MeinheldWorker

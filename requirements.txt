@@ -12,12 +12,10 @@ itsdangerous==0.24
 itypes==1.1.0
 Jinja2==2.9.6
 MarkupSafe==1.0
-meinheld==0.6.1
 py==1.4.34
 pytest==3.2.1
 requests==2.18.4
 uritemplate==3.0.0
 urllib3==1.22
-uvicorn==0.0.15
 Werkzeug==0.12.2
 whitenoise==3.3.0
