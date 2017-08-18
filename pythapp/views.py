@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from pythapp.serializers import UserSerializer, GroupSerializer
-
+from .models import Greeting
+from django.http import HttpResponse
+from django.shortcuts import render
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -17,3 +19,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+def db(request):
+    greeting = Greeting()
+    greeting.save()
+    greetings = Greeting.objects.all()
+
+    return render(request, 'db.html', {'greetings': greetings})
+
+def index(request):
+    # r = requests.get('http://httpbin.org/status/418')
+    # print(r.text)
+    return HttpResponse('Hello from Python!')
