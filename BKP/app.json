@@ -1,7 +1,0 @@
-{
-  "name": "Start on Heroku: Python",
-  "description": "A Python API",
-  "image": "heroku/python",
-  "repository": "https://github.com/heroku/python-getting-started",
-  "keywords": ["python", "API" ],
-}
