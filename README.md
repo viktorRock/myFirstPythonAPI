@@ -1,7 +1,7 @@
 myFirstPythonAPI
 ==================
 
-A  python restful API to manage integration with Python (could be bots, flask pages and etcetera).
+A python restful API to manage integration with Python (could be bots, flask pages and etcetera).
 
 The API is configured to deploy at Heroku
 
