@@ -18,26 +18,26 @@ The API is configured to deploy at Heroku
    * Link Bot with User
    * Authentication
 
-3. How to build locally ?
-   1.  ENV VARS - You need to create environment vars at local and heroku environments
-      1. SECRET_KEY - the secret key of the API host
-      2. PORT - The port used to test (HEROKU only)
-         1. DATABASE_URL - The DB connection url (HEROKU ENV - if you just want to test locally you can skip this part)
-   2. Install Python Dependencies
+## How to build locally ?
+1.  ENV VARS - You need to create environment vars at local and heroku environments
+   1. SECRET_KEY - the secret key of the API host
+   2. PORT - The port used to test (HEROKU only)
+      1. DATABASE_URL - The DB connection url (HEROKU ENV - if you just want to test locally you can skip this part)
+2. Install Python Dependencies
       * ``` pip install -r requirements.txt ```
-   3. Create and Connect Heroku account (HEROKU ENV - if you just want to test locally you can skip this part)
-      * https://devcenter.heroku.com/articles/getting-started-with-python#introduction
-   4. Prepare database and django static file (always do this when you change views or Models)
-      * LOCAL ENV
-         * Start Django Migrate
-         * ``` python manage.py migrate ```
-         * If is justa a Update on a existing table you can do this, before migrate
-         * ``` python manage.py makemigrations ```
+3. Create and Connect Heroku account (HEROKU ENV - if you just want to test locally you can skip this part)
+   * https://devcenter.heroku.com/articles/getting-started-with-python#introduction
+4. Prepare database and django static file (always do this when you change views or Models)
+   * LOCAL ENV
+   * Start Django Migrate
+      * ``` python manage.py migrate ```
+   * If is justa a Update on a existing table you can do this, before migrate
+      * ``` python manage.py makemigrations ```
 
-4. Running on Windows (Test Locally)
-   * Justo Python and Django
+## Running on Windows (Test Locally)
+* Just Python and Django
    * ``` python manage.py runserver ```
-   * Using Heroku Locally
+* Using Heroku Locally
    * ``` heroku local web -f Procfile.windows ```
 
 ## FAQ
@@ -48,10 +48,10 @@ The API is configured to deploy at Heroku
    * Quickstart at - http://www.django-rest-framework.org/tutorial/quickstart/
 
 ##. Tips to run at Heroku
-   1. deploy HEROKU (HEROKU ENV - if you just want to test locally you can skip this part)
-      * If you already had connect in Heroku your GitHub account you should (FIRST TIME only)
-      *  disable collectstatic frrom Django before create the static folders
-      * ``` heroku config:set DISABLE_COLLECTSTATIC=1 ```
-   2. After Django migrate and collectstatic and build
-      * Start the scallabe Dyno
-      * ``` heroku ps:scale web=1 ```
+1. deploy HEROKU (HEROKU ENV - if you just want to test locally you can skip this part)
+   * If you already had connect in Heroku your GitHub account you should (FIRST TIME only)
+   *  disable collectstatic frrom Django before create the static folders
+   * ``` heroku config:set DISABLE_COLLECTSTATIC=1 ```
+2. After Django migrate and collectstatic and build
+   * Start the scallabe Dyno
+   * ``` heroku ps:scale web=1 ```
