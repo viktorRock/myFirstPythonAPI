@@ -55,3 +55,9 @@ The API is configured to deploy at Heroku
 2. After Django migrate and collectstatic and build
    * Start the scallabe Dyno
    * ``` heroku ps:scale web=1 ```
+
+## Python on Heroku Documentation
+
+For more information about using Python on Heroku, see these Dev Center articles:
+
+- [Python on Heroku](https://devcenter.heroku.com/categories/python)
