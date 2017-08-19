@@ -5,7 +5,7 @@ A  python restful API to manage to create integration with Python bots, using mo
 
 The API is configured to deploy at Heroku
 
-1. The actual version contains
+1. The current version contains
    * User management
    * Group management
    * Bot Management
