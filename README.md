@@ -1,7 +1,7 @@
 myFirstPythonAPI
 ==================
 
-A python restful API to manage to create integration with Python bots, using models generated from ML models.
+A  python restful API to manage to create integration with Python bots, using models generated from ML models.
 
 The API is configured to deploy at Heroku
 
@@ -20,9 +20,9 @@ The API is configured to deploy at Heroku
 
 ## How to build locally ?
 1.  ENV VARS - You need to create environment vars at local and heroku environments
-   1. SECRET_KEY - the secret key of the API host
-   2. PORT - The port used to test (HEROKU only)
-      1. DATABASE_URL - The DB connection url (HEROKU ENV - if you just want to test locally you can skip this part)
+    1. SECRET_KEY - the secret key of the API host
+    2. PORT - The port used to test (HEROKU only)
+        1. DATABASE_URL - The DB connection url (HEROKU ENV - if you just want to test locally you can skip this part)
 2. Install Python Dependencies
       * ``` pip install -r requirements.txt ```
 3. Create and Connect Heroku account (HEROKU ENV - if you just want to test locally you can skip this part)
