@@ -10,7 +10,7 @@ The API is configured to deploy at Heroku
    * Group management
    * Bot Management
    * Test Pages
-   * at /digitalParrot a dummy bot that sends stastic answer (for test porpouse)
+   * at /digitalParrot a dummy bot that sends static answer (for test porpouse)
 
 
 2. What is pending ?
