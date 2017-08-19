@@ -39,6 +39,8 @@ The API is configured to deploy at Heroku
    * ``` python manage.py runserver ```
 * Using Heroku Locally
    * ``` heroku local web -f Procfile.windows ```
+* Open http://127.0.0.1:8000/ at your browser
+* HAVE FUN !
 
 ## FAQ
 * How to create the heroku environments ?
