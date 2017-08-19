@@ -34,10 +34,10 @@ The API is configured to deploy at Heroku
    * If is justa a Update on a existing table you can do this, before migrate
       * ``` python manage.py makemigrations ```
 
-## Running on Windows (Test Locally)
+## Running Local Test
 * Just Python and Django
    * ``` python manage.py runserver ```
-* Using Heroku Locally
+* Using Heroku on Windows
    * ``` heroku local web -f Procfile.windows ```
 * Open http://127.0.0.1:8000/ at your browser
 * HAVE FUN !
