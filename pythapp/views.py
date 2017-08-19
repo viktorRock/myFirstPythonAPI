@@ -1,10 +1,10 @@
+
+
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets, status
 from pythapp.serializers import UserSerializer, GroupSerializer, BotSerializer
 from .models import Greeting, Bot
-from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import viewsets, status, generics, permissions, renderers
 from rest_framework.decorators import api_view,permission_classes,detail_route
 from rest_framework.response import Response
 from pythapp.permissions import IsOwnerOrReadOnly
@@ -16,6 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
+
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -30,8 +31,16 @@ class BotViewSet(viewsets.ModelViewSet):
     """
     queryset = Bot.objects.all()
     serializer_class = BotSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                      IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
+
+    @detail_route(renderer_classes=(renderers.StaticHTMLRenderer,))
+    def highlight(self, request, *args, **kwargs):
+        bot = self.get_object()
+        return Response(bot.highlighted)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
@@ -61,4 +70,4 @@ def db(request):
 def index(request):
     # r = requests.get('http://httpbin.org/status/418')
     # print(r.text)
-    return HttpResponse('Hello !' + request.data)
+    return Response('Hello !' + request.data)
