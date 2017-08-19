@@ -15,8 +15,6 @@ class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
 
 class Bot(models.Model):
-    today  = datetime.today()
-    defaultName = datetime.today().strftime("%a%d%b%y_%H%M%S")
     # name = models.CharField(max_length=80, blank=True, default=defaultName)
     owner = models.ForeignKey('auth.User', related_name='bots', on_delete=models.CASCADE)
     highlighted = models.TextField()
@@ -25,7 +23,7 @@ class Bot(models.Model):
     MLmodel = models.TextField()
     isDeepLearning = models.BooleanField(default=False)
     linenos = models.BooleanField(default=False)
-    language = models.CharField(choices=STYLE_CHOICES,default='python', max_length=100)
+    language = models.CharField(choices=LANGUAGE_CHOICES,default='python', max_length=100)
     style = models.CharField(choices=STYLE_CHOICES,default='friendly',max_length=100)
 
     class Meta:
