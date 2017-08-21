@@ -1,14 +1,22 @@
-
-
 from django.contrib.auth.models import User, Group
-from pythapp.serializers import UserSerializer, GroupSerializer, BotSerializer
-from .models import Greeting, Bot
 from django.shortcuts import render
-from rest_framework import viewsets, status, generics, permissions, renderers
-from rest_framework.decorators import api_view,permission_classes,detail_route
+from django.http import HttpResponse
+from rest_framework import viewsets, permissions, renderers, authentication
+from rest_framework.decorators import permission_classes, authentication_classes, detail_route
 from rest_framework.response import Response
 from pythapp.permissions import IsOwnerOrReadOnly
-from django.http import HttpResponse
+from pythapp.serializers import UserSerializer, GroupSerializer, BotSerializer
+from .models import Greeting, Bot
+
+# Tokens
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
+
+for user in User.objects.all():
+    Token.objects.get_or_create(user=user)
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -17,7 +25,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
-
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -25,13 +32,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+@permission_classes((permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly))
 class BotViewSet(viewsets.ModelViewSet):
     """
      This viewset automatically provides `list` and `detail` actions.
     """
     queryset = Bot.objects.all()
     serializer_class = BotSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly,)
 
     @detail_route(renderer_classes=(renderers.StaticHTMLRenderer,))
     def highlight(self, request, *args, **kwargs):
@@ -41,16 +48,17 @@ class BotViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-def db(request):
-    greeting = Greeting()
-    greeting.save()
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
+    def nltklem(self, request, *args, **kwargs):
+        data = request.GET
+        lemma_obj = NLTKLemmatize(data)
+        res = lemma_obj.lemma()
+        return Response(res)
 
 @detail_route(renderer_classes=(renderers.StaticHTMLRenderer,))
 def index(request):
-    # r = requests.get('http://httpbin.org/status/418')
-    # print(r.text)
-    # return Response('Hello !' + str(request))
     return HttpResponse('Hello from Python!')
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
