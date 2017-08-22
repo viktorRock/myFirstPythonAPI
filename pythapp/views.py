@@ -59,5 +59,5 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
 
-for user in User.objects.all():
-    Token.objects.get_or_create(user=user)
+# for user in User.objects.all():
+    # Token.objects.get_or_create(user=user)

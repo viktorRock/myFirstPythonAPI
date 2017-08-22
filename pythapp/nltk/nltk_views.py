@@ -6,10 +6,11 @@ from pythapp.nltk.nltkutil import NLTKStem, NLTKTokenize, NLTKTag, NLTKner, NLTK
 from pythapp.permissions import IsOwnerOrReadOnly
 
 # @permission_classes((permissions.IsAdminUser,))
+# @authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
 # @authentication_classes((authentication.TokenAuthentication,))
 # @permission_classes((permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly))
 @permission_classes((permissions.IsAuthenticated,))
-@authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
+@authentication_classes((authentication.TokenAuthentication,))
 class LemmatizeView(APIView):
     """
     View for Lemmatization
