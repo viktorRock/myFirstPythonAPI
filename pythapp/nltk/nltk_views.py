@@ -10,7 +10,7 @@ from pythapp.permissions import IsOwnerOrReadOnly
 # @authentication_classes((authentication.TokenAuthentication,))
 # @permission_classes((permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly))
 @permission_classes((permissions.IsAuthenticated,))
-@authentication_classes((authentication.TokenAuthentication,))
+@authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
 class LemmatizeView(APIView):
     """
     View for Lemmatization
@@ -23,7 +23,7 @@ class LemmatizeView(APIView):
         return Response(res)
 
 @permission_classes((permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly))
-@authentication_classes((authentication.TokenAuthentication,))
+@authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
 class HomeView(APIView):
     """
     Landing Page View
@@ -49,6 +49,8 @@ class HomeView(APIView):
         }
         return Response(res)
 
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
 class POSTagView(APIView):
     """
     View for Part Of Speech tagging
@@ -61,7 +63,8 @@ class POSTagView(APIView):
 
         return Response(res)
 
-
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
 class NERView(APIView):
     """
     View for Named Entity Recognition
@@ -74,6 +77,8 @@ class NERView(APIView):
 
         return Response(res)
 
+@permission_classes((permissions.IsAuthenticated,))
+@authentication_classes((authentication.TokenAuthentication,authentication.SessionAuthentication,))
 class SentimentView(APIView):
     """
     View for Sentiment Analysis

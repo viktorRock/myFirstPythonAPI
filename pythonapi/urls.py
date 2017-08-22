@@ -13,8 +13,8 @@ Including another URLconf
 2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from pythapp import views
-from pythapp.nltk import nltk_views
+from pythapp import views,myauth
+from pythapp.nltk import nltk_views, urls
 from rest_framework import routers, serializers, viewsets, authtoken
 from django.contrib import admin
 from pythapp.myauth import urls
@@ -30,6 +30,7 @@ router.register(r'bots', views.BotViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^', include(myauth.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^digitalparrot', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
@@ -38,7 +39,6 @@ urlpatterns = [
     url(r'^api/tag/$', nltk_views.POSTagView.as_view()),
     url(r'^api/ner/$', nltk_views.NERView.as_view()),
     url(r'^api/sentiment/$', nltk_views.SentimentView.as_view()),
-    url(r'^', include(urls)),
     url(r'^api-token-auth/', authtoken.views.obtain_auth_token),
 ]
 # urlpatterns += format_suffix_patterns(urlpatterns)

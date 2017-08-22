@@ -2,10 +2,11 @@ from django.contrib.auth.models import User, Group
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import viewsets, permissions, renderers, authentication
-from rest_framework.decorators import permission_classes, authentication_classes, detail_route
+from rest_framework.decorators import permission_classes, authentication_classes, detail_route,api_view
 from rest_framework.response import Response
 from pythapp.permissions import IsOwnerOrReadOnly
 from pythapp.serializers import UserSerializer, GroupSerializer, BotSerializer
+from pythapp.nltk.nltkutil import NLTKStem, NLTKTokenize, NLTKTag, NLTKner, NLTKLemmatize, NLTKSentiment
 from .models import Greeting, Bot
 
 # Tokens
@@ -44,10 +45,24 @@ class BotViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-    def nltklem(self, request, *args, **kwargs):
+    @detail_route(renderer_classes=(renderers.JSONRenderer,))
+    def chat(self, request, *args, **kwargs):
         data = request.GET
-        lemma_obj = NLTKLemmatize(data)
-        res = lemma_obj.lemma()
+
+        #POS tagging
+        pos_obj = NLTKTag(data)
+        pos_res = pos_obj.pos_tag()
+        #NER
+        ner_obj = NLTKner(data)
+        ner_res = ner_obj.ner()
+
+        #sentiment
+        senti_obj = NLTKSentiment(data)
+        senti_res = senti_obj.sentiment()
+
+        nltkAux = { 'nltk-NER' : ner_res['result'], 'nltk-POS' : pos_res['result'], 'nletk-Senti' : senti_res['result']}
+
+        res = nltkAux
         return Response(res)
 
 @detail_route(renderer_classes=(renderers.StaticHTMLRenderer,))

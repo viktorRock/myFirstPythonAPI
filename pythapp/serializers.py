@@ -17,7 +17,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class BotSerializer(serializers.HyperlinkedModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     highlight = serializers.HyperlinkedIdentityField(view_name='bot-highlight', format='html')
-    # lemma = serializers.HyperlinkedIdentityField(view_name='bot-nltklem', format='html')
+    chat = serializers.HyperlinkedIdentityField(view_name='bot-chat', format='html')
     class Meta:
         model = Bot
-        fields = ('id', 'name','owner', 'MLmodel', 'created', 'isDeepLearning', 'language', 'style','highlight','linenos')
+        fields = ('id', 'name','owner', 'MLmodel', 'created', 'isDeepLearning', 'language', 'style','highlight','linenos','chat')
