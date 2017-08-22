@@ -55,13 +55,11 @@ class BotViewSet(viewsets.ModelViewSet):
         #NER
         ner_obj = NLTKner(data)
         ner_res = ner_obj.ner()
-
         #sentiment
         senti_obj = NLTKSentiment(data)
         senti_res = senti_obj.sentiment()
 
         nltkAux = { 'nltk-NER' : ner_res['result'], 'nltk-POS' : pos_res['result'], 'nletk-Senti' : senti_res['result']}
-
         res = nltkAux
         return Response(res)
 
